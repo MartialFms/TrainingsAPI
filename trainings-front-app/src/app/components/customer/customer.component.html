@@ -1,0 +1,76 @@
+<div class="container">
+  <h5>Veuillez renseigner vos informations</h5>
+  <div class="col-md-3">
+    <form [formGroup]="myForm" (ngSubmit)="onSaveCustomer(myForm)">
+      <div class="form-group mt-2">
+        <label class="control-label">Nom : </label>
+        <input
+          type="text"
+          name="lastname"
+          formControlName="lastname"
+          class="form-control"
+          [(ngModel)]="cartService.getCustomer().lastname"
+        />
+        <span class="text-danger" *ngIf="myForm.get('firstname')?.errors"
+        >Nom manquant</span
+      >
+      </div>
+      <div class="form-group mt-2">
+        <label class="control-label">Prénom : </label>
+        <input
+          type="text"
+          name="firstname"
+          class="form-control"
+          formControlName="firstname"
+          [(ngModel)]="cartService.getCustomer().firstname"
+        />
+        <span class="text-danger" *ngIf="myForm.get('firstname')?.errors"
+        >Prénom manquant</span
+      >
+      </div>
+
+      <div class="form-group mt-2">
+        <label class="control-label">Adresse : </label>
+        <input
+          type="text"
+          name="address"
+          class="form-control"
+          formControlName="address"
+          [(ngModel)]="cartService.getCustomer().address"
+        />
+        <span class="text-danger" *ngIf="myForm.get('address')?.errors"
+          >Adresse incorrecte</span
+        >
+      </div>
+
+      <div class="form-group mt-2">
+        <label class="control-label">Tel :</label>
+        <input
+          type="text"
+          name="phone"
+          class="form-control"
+          formControlName="phone"
+          [(ngModel)]="cartService.getCustomer().phone"
+        />
+        <span class="text-danger" *ngIf="myForm.get('phone')?.errors"
+          >Téléphone incorrect</span
+        >
+      </div>
+
+      <div class="form-group mt-2">
+        <label class="control-label">Email : </label>
+        <input
+          type="text"
+          name="email"
+          formControlName="email"
+          class="form-control"
+          [(ngModel)]="cartService.getCustomer().email"
+        />
+        <span class="text-danger" *ngIf="myForm.get('email')?.errors"
+          >Email invalide</span
+        >
+      </div>
+      <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary mt-2">Soumettre</button>
+    </form>
+  </div>
+</div>

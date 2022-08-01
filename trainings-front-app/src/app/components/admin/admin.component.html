@@ -1,0 +1,48 @@
+<div class="container">
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item pe-2">
+      <a class="nav-link active" routerLink="/admin">Formations</a>
+    </li>
+    <li class="nav-item pe-2">
+      <a class="nav-link" routerLink="/admin/commandes">Commandes</a>
+    </li>
+    <li class="nav-item pe-2">
+      <a class="nav-link">Clients</a>
+    </li>
+  </ul>
+  <h4 class="m-3">Liste de vos formations</h4>
+  <a class="btn btn-primary btn-sm" href="#" routerLink="/training/?">Ajouter une formation</a>
+  <ng-container *ngIf="(listTrainings | keyvalue)?.length; else empty">
+    <table class="table">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOM</th>
+          <th scope="col">DESCRIPTION</th>
+          <th scope="col" class="text-center">IMAGE</th>
+          <th scope="col">CATEGORIE</th>
+          <th scope="col">PRIX</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let training of listTrainings">
+          <th scope="row">{{ training.id }}</th>
+          <td>{{ training.name }}</td>
+          <td>{{ training.description }}</td>
+          <td class="text-center"><img [src]="url+training.id" style = "height:90px;width:fil-content"></td>
+          <td>{{ training.category.name }}</td>
+          <td>{{ training.price }} €</td>
+          <td>
+            <a class="btn btn-warning btn-sm" (click)="onUpdateTraining(training)">Modifier</a>&nbsp;
+            <a class="btn btn-danger btn-sm" (click)="deleteTraining(training.id)">Supprimer</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-template #empty>
+    <h5>Loading...</h5>
+  </ng-template>
+</div>
+

@@ -1,0 +1,41 @@
+<div class="container">
+  <ng-container *ngIf="(cart | keyvalue)?.length; else empty">
+    <h5>Votre panier</h5>
+    <table class="table">
+      <thead class="table-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOM</th>
+          <th scope="col">QUANTITE</th>
+          <th scope="col">PRIX UNITAIRE</th>
+          <th scope="col">TOTAL</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cart">
+          <th scope="row">{{ item.id }}</th>
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price }} €</td>
+          <td>{{ item.price * item.quantity }} €</td>
+          <td>
+            <a class="btn btn-danger" (click)="delete(item)">Supprimer</a>
+          </td>
+        </tr>
+        <tr class="table-primary fw-bold">
+          <td>Total</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{{ total }} €</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-success" (click)="newOrder()">Commander</button>
+  </ng-container>
+  <ng-template #empty>
+    <h5>Votre panier est vide</h5>
+  </ng-template>
+</div>

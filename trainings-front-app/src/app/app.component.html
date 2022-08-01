@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-5">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">TRAININGS</a>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/trainings">Formations</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link active" routerLink="/cart">Panier </a> 
+      <!-- <strong>[{{cartSize}}]</strong> -->
+      </li>
+      <li class="nav-item" *ngIf="isAdmin()">
+        <a class="nav-link active" routerLink="/admin">Panel Admin</a>
+      </li>
+      <li class="nav-item" *ngIf="!isLogged(); else logoutBtn">
+        <a class="nav-link active" routerLink="/login">Se connecter</a>
+      </li>
+      <ng-template #logoutBtn>
+        <li class="nav-item">
+          <button class="btn btn-danger" (click)="logout()">
+            Se déconnecter
+          </button>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>
+
+<div class="container my-5" *ngIf="isLogged()">
+  <strong>Bonjour <span class="text-danger">{{username}}</span>, vous êtes bien connecté. </strong>
+</div>
+
+<router-outlet></router-outlet>

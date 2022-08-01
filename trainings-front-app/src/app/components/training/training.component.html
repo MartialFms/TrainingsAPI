@@ -1,0 +1,85 @@
+<div class="container mt-5">
+  <h2>{{ title }}</h2>
+  <form [formGroup]="myForm" (ngSubmit)="onSaveTraining(myForm)">
+    <div class="row">
+      <div class="mb-3 col-md-8">
+        <input
+          type="hidden"
+          class="form-control"
+          id="id"
+          formControlName="id"
+        />
+      </div>
+      <div class="mb-3 col-md-8">
+        <label for="trainingName" class="form-label">Nom de la formation</label>
+        <input
+          type="text"
+          class="form-control"
+          id="trainingName"
+          formControlName="name"
+        />
+        <span class="text-danger" *ngIf="myForm.get('name')?.errors"
+        >Nom manquant</span>
+      </div>
+      <div class="mb-3 col-md-4">
+        <label for="trainingName" class="form-label">Prix</label>
+        <input
+          type="number"
+          class="form-control"
+          id="trainingName"
+          min="1"
+          formControlName="price"
+        />
+        <span class="text-danger" *ngIf="myForm.get('price')?.errors"
+        >Prix non renseigné</span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="trainingName" class="form-label">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="trainingName"
+        formControlName="description"
+      />
+      <span class="text-danger" *ngIf="myForm.get('description')?.errors"
+      >Description manquante</span>
+    </div>
+    <div class="row">
+      <div class="mb-3 col-md-4">
+        <label for="category" class="form-label">Categorie</label>
+        <select class="form-select" formControlName="category">
+          <option [ngValue]="null" disabled>Choississez la catégorie</option>
+          <option *ngFor="let cat of categories" [ngValue]="cat.id">
+            {{ cat.name }}
+          </option>
+        </select>
+        <span class="text-danger" *ngIf="myForm.get('category')?.errors"
+        >Catégorie non selectionnée</span>
+      </div>
+      <div class="mb-3 col-md-4">
+        <div>
+         <label for="image" class="form-label">Image</label><br />
+          <input
+            type="file"
+            class="form-control-file"
+            id="image"
+            (change)="onFileChanged($event)"
+          /><br/>
+          <img
+            *ngIf="training != null"
+            [src]="url + training.id"
+            style="height: 90px; width: fil-content"
+          /><br/>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="!status" type="submit" class="btn btn-primary">
+      Ajouter
+    </button>
+    <button *ngIf="status" type="submit" class="btn btn-primary">
+      Mise à jour
+    </button>
+    <div class="text-danger">{{ error }}</div>
+  </form>
+</div>

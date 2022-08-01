@@ -1,0 +1,86 @@
+{
+  "trainings": [
+    {
+      "id": 1,
+      "name": "Java",
+      "description": "Formation Java SE 8 sur 5 jours",
+      "price": 1500,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "name": "DotNet",
+      "description": "Formation DotNet sur 3 jours",
+      "price": 1000,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "name": "Python",
+      "description": "Formation Python/Django sur 5 jours",
+      "price": 1500,
+      "quantity": 1
+    },
+    {
+      "id": 4,
+      "name": "PHP Frameworks",
+      "description": "Symfony sur 15 jours",
+      "price": 2500,
+      "quantity": 1
+    },
+    {
+      "id": 5,
+      "name": "Spring",
+      "description": "Spring Core/MVC/Security sur 20 jours",
+      "price": 5500,
+      "quantity": 1
+    },
+    {
+      "id": 6,
+      "name": "HTML/CSS",
+      "description": "Formation sur 5 jours",
+      "price": 1000,
+      "quantity": 1
+    },
+    {
+      "id": 7,
+      "name": "Javascript",
+      "description": "ECMA6 sur 5 jours",
+      "price": 1000,
+      "quantity": 1
+    },
+    {
+      "id": 12,
+      "name": "CSS Frameworks",
+      "description": "Bootstrap pour les nuls",
+      "price": 500,
+      "quantity": 1
+    },
+    {
+      "id": 14,
+      "name": "DotNet",
+      "description": "Formation DotNet sur 3 jours",
+      "price": 1000,
+      "quantity": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "delmerie",
+      "password": "123",
+      "role": [
+        "ADMIN",
+        "USER"
+      ]
+    },
+    {
+      "id": 2,
+      "username": "caroline",
+      "password": "123",
+      "role": [
+        "USER"
+      ]
+    }
+  ]
+}
