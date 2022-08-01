@@ -33,7 +33,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         System.out.println("User tente une connexion");
+        System.out.println(username + " " + password);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        System.out.println(authenticationToken);
         return authenticationManager.authenticate(authenticationToken);
     }
 
@@ -60,4 +62,5 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), idToken);
     }
+
 }

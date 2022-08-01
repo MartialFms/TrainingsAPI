@@ -68,7 +68,9 @@ public class ApiTrainingsApplication implements CommandLineRunner {
         Role admin = implRoleService.save(new Role(null, "ADMIN"));
         Role user = implRoleService.save(new Role(null, "USER"));
 
-        String mdp = implUserService.encodePassword("123");
+//        String mdp = implUserService.encodePassword("123");
+
+        String mdp = "$2a$12$ddGbM6lvl6AyWIAhFKF6PeLvkyN//GpC8Qoe1qe1bA12V4YOAL05q";
 
         List<Role> del = new ArrayList<>();
         del.add(admin);
@@ -77,7 +79,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
         List<Role> mama = new ArrayList<>();
         mama.add(user);
 
-        implUserService.save(new Users(null, "j.delmerie@live.fr", "del", implUserService.encodePassword("mdp"), true, del));
-        implUserService.save(new Users(null, "mama@live.fr", "mamacita", implUserService.encodePassword("test"), true, mama));
+        implUserService.save(new Users(null, "j.delmerie@live.fr", "del", mdp, true, del));
+        implUserService.save(new Users(null, "mama@live.fr", "mamacita", mdp, true, mama));
     }
 }

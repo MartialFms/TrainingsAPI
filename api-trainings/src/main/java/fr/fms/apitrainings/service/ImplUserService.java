@@ -42,7 +42,10 @@ public class ImplUserService implements IService<Users> {
     public Users getUser(String email) {
         return usersRepository.findByEmail(email);
     }
-    public String encodePassword(String mdp){return security.encodePassword(mdp);}
 
+    public String encodePassword(String mdp) {
+        return security.encodePassword(mdp);
     }
+
+}
 
