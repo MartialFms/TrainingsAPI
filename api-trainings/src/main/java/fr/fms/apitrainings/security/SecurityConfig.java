@@ -21,6 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
+
+
     String usersByUsernameQuery = "select email, password, enable from users where email = ?";
     String authoritiesByUsernameQuery = "SELECT u.email, r.name from users AS u \r\n"
             + "INNER JOIN users_roles ur ON u.id = ur.users_id \r\n"
