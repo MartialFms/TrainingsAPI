@@ -2,6 +2,7 @@ package fr.fms.apitrainings.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import fr.fms.apitrainings.entities.Users;
 import fr.fms.apitrainings.security.JwtUtils;
 import fr.fms.apitrainings.security.payload.JwtResponse;
 import fr.fms.apitrainings.security.payload.LoginRequest;
@@ -58,8 +59,10 @@ public class AuthController {
 //                .withIssuer(request.getRequestURL().toString())
                 .sign(algorithm);
 
+        Users users = implUserService.findByEmail(user.getUsername());
+
         //Generate response
-        JwtResponse response = new JwtResponse(accessToken, refreshToken, user.getUsername(), user.getPassword(), user.getAuthorities());
+        JwtResponse response = new JwtResponse(accessToken, refreshToken, users, user.getAuthorities());
         return ResponseEntity.ok(response);
     }
 }

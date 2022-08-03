@@ -33,31 +33,32 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.role = this.tokenStorage.getUser().role;
     }
+    console.log(this.isLoggedIn)
   }
 
-  onSubmit(form: FormGroup) {
-    if (form.valid) {
-      this.authService.login(form.value.email, form.value.password);
-      // this.authService.loginTest(form.value.email, form.value.password).subscribe({
-      //   next: (data) => (console.log(data)),
-      //   error: (err) => (console.log(err)),
-      // });
-      if (!this.authService.isLogged) {
-        this.displayError = true;
-      } else {
-        this.router.navigateByUrl('cart');
-      }
-    }
-  }
+  // onSubmit(form: FormGroup) {
+  //   if (form.valid) {
+  //     this.authService.login(form.value.email, form.value.password);
+  //     // this.authService.loginTest(form.value.email, form.value.password).subscribe({
+  //     //   next: (data) => (console.log(data)),
+  //     //   error: (err) => (console.log(err)),
+  //     // });
+  //     if (!this.authService.isLogged) {
+  //       this.displayError = true;
+  //     } else {
+  //       this.router.navigateByUrl('cart');
+  //     }
+  //   }
+  // }
 
   onSubmitTk(form: FormGroup) {
     if (form.valid) {
       console.log(form.value.email + " --- " + form.value.password)
       this.authService.loginTk(form.value.email, form.value.password).subscribe(
         (data) => {
-          console.log("------------" + data.accessToken + " --"  + data.refreshToken)
+          console.log("------------" + data.accessToken + " --"  + data.user)
           this.tokenStorage.saveToken(data.accessToken);
-          this.tokenStorage.saveUser(data);
+          this.tokenStorage.saveUser(data.user);
           this.isLoggedIn = true;
           this.role = this.tokenStorage.getUser().role;
           console.log(' + + Reussite de connection avec Json token + +');

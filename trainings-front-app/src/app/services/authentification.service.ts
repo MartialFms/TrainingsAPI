@@ -24,7 +24,7 @@ export class AuthentificationService {
       username: 'del',
       password: '123',
       enable: true,
-      roles: ['ADMIN', 'USER']
+      roles: ['ADMIN', 'USER'],
     },
   ];
 
@@ -32,50 +32,49 @@ export class AuthentificationService {
     this.currentUser = new Map<string, String>();
   }
 
-  //save current user in localstorage
-  saveCurrentUser(user: User) {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-  }
+  // //save current user in localstorage
+  // saveCurrentUser(user: User) {
+  //   localStorage.setItem('currentUser', JSON.stringify(user));
+  // }
 
-  //check if user existe and login to order
-  login(email: string, password: string) {
-    if (!this.isLogged) {
-      for (let u of this.users) {
-        if (email == u.email && password == u.password) {
-          this.user = new User(u.id,u.username, window.btoa(u.password), u.email, u.enable, u.roles, []);
-          this.saveCurrentUser(this.user);
-          this.isLogged = true;
+  // //check if user existe and login to order
+  // login(email: string, password: string) {
+  //   if (!this.isLogged) {
+  //     for (let u of this.users) {
+  //       if (email == u.email && password == u.password) {
+  //         this.user = new User(
+  //           u.id,
+  //           u.username,
+  //           window.btoa(u.password),
+  //           u.email,
+  //           u.enable,
+  //           u.roles,
+  //           []
+  //         );
+  //         this.saveCurrentUser(this.user);
+  //         this.isLogged = true;
 
-          for (let r of u.roles) {
-            if (r == 'ADMIN') {
-              this.isAdmin = true;
-            }
-          }
-        }
-      }
-    }
-  }
-
-
+  //         for (let r of u.roles) {
+  //           if (r == 'ADMIN') {
+  //             this.isAdmin = true;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   //avec token ------------------------------
   loginTk(username: string, password: string): Observable<any> {
     console.log(new HttpHeaders({ 'Content-Type': 'application/json' }));
-    return this.http.post("http://localhost:8080/api/signin", { username, password } ,{
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }
-
-    )
-  })
+    return this.http.post(
+      'http://localhost:8080/api/signin',
+      { username, password },
+      {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      }
+    );
   }
-
-  /*
-  loginTk(email: string, password: string): Observable<any> {
-    console.log(new HttpHeaders({ 'Content-Type': 'application/json' }));
-    return this.http.post("http://localhost:8080/api/signin", { email, password }, {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    });
-  } */
-
 
   //disconnect user
   logout() {

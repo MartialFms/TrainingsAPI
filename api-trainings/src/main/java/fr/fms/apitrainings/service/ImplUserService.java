@@ -20,7 +20,6 @@ public class ImplUserService implements IService<Users> {
     @Autowired
     SecurityConfig security;
 
-
     @Autowired
     public JwtUtils jwtUtils;
 
@@ -50,6 +49,10 @@ public class ImplUserService implements IService<Users> {
 
     public String encodePassword(String mdp) {
         return security.encodePassword(mdp);
+    }
+
+    public Users findByEmail(String email){
+        return usersRepository.findByEmail(email);
     }
 
 }
