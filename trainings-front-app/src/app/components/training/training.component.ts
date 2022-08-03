@@ -87,6 +87,7 @@ export class TrainingComponent implements OnInit {
       } else {
         this.addTraining(trainingData);
       }
+      console.log(trainingData)
     }
   }
 
@@ -125,16 +126,4 @@ export class TrainingComponent implements OnInit {
   public onFileChanged(event: any) {
     this.file = event.target.files[0];
   }
-
-  // //Gets called when the user clicks on retieve image button to get the image from back end
-  // getImage() {
-  //   //Make a call to Sprinf Boot to get the Image Bytes.
-  //   this.httpClient
-  //     .get('http://localhost:8080/image/get/' + this.imageName)
-  //     .subscribe((res) => {
-  //       this.retrieveResonse = res;
-  //       this.base64Data = this.retrieveResonse.picByte;
-  //       this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-  //     });
-  // }
 }

@@ -45,7 +45,7 @@ export class OrderDetailsComponent implements OnInit {
 
   getOrderItems(orderId:number){
     this.api.getOrderItems(orderId).subscribe({
-      next: (data) => (this.orderItems = data, console.log(data)),
+      next: (data) => (this.orderItems = data),
       error: (err) => (this.error = err.message),
     });
   }

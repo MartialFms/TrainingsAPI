@@ -14,6 +14,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -75,7 +76,9 @@ public class TrainingController {
     }
 
     @DeleteMapping("/trainings/{id}")
-    public void deleteTraining(@PathVariable("id") long id) {
+    public void deleteTraining(@PathVariable("id") long id) throws IOException {
+        Training training = implTrainingService.getOneById(id).get();
+        Files.delete(Paths.get("uploads").resolve(training.getImage()));
         implTrainingService.delete(id);
     }
 
