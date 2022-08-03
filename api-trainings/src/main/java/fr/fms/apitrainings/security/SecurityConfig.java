@@ -46,8 +46,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()))
-                .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 //        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/signin").permitAll();
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/trainings").permitAll();
@@ -55,10 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/trainingImage/{id}").permitAll();
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/categories").permitAll();
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/category/{id}").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/login").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/training/2").hasAuthority("ROLE_ADMIN");
+//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/training/{id}").hasAuthority("ROLE_ADMIN");
 //        http.authorizeRequests().anyRequest().authenticated();
-        
+
+        http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()))
+                .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

@@ -48,8 +48,8 @@ public class AuthController {
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000))
-//                .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", user.getAuthorities().stream().map(roles -> roles.getAuthority()).collect(Collectors.toList()))
+                .withClaim("roles", user.getAuthorities().stream().map(roles ->
+                        roles.getAuthority()).collect(Collectors.toList()))
                 .sign(algorithm);
 
         //Generate refresh Token

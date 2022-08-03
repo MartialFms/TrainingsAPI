@@ -18,25 +18,21 @@ public class OrderController {
     private ImplOrderService implOrderService;
 
     @PostMapping("/order")
-    @PostAuthorize("hasAuthority('ROLE_USER')")
     public Orders saveOrder(@RequestBody Orders orders) {
         return implOrderService.save(orders);
     }
 
     @GetMapping("/orders")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Orders> getAllOrders() {
         return implOrderService.getAll();
     }
 
     @GetMapping("/orderItems/{orderId}")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<OrderItem> getOrderItem(@PathVariable("orderId") long orderId) {
         return implOrderService.getOrderItemsByOrderId(orderId);
     }
 
     @GetMapping("/order/{orderId}")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public Orders getOneOrder(@PathVariable("orderId") long orderId) {
         return implOrderService.getOneById(orderId).get();
     }

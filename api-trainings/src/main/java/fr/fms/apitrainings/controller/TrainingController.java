@@ -39,12 +39,9 @@ public class TrainingController {
     }
 
     @PostMapping("/trainings")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Error> saveTraining(@RequestParam("image") MultipartFile image, @RequestParam("training") String trainingJson) throws JsonProcessingException {
         Training training = new ObjectMapper().readValue(trainingJson, Training.class);
         training.setCategory(implCategoryService.getOneById(training.getCategory().getId()).get());
-//        String extention = implImageService.getFileExtention(image.getOriginalFilename());
-//        String filename = training.getName() + "." + extention;
         if (training.getImage() != null) {
             training.setImage(image.getOriginalFilename());
         } else {
@@ -61,12 +58,9 @@ public class TrainingController {
     }
 
     @PutMapping("/training/{id}")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public void updateTraining(@RequestParam("image") MultipartFile image, @RequestParam("training") String trainingJson) throws JsonProcessingException {
         Training training = new ObjectMapper().readValue(trainingJson, Training.class);
         training.setCategory(implCategoryService.getOneById(training.getCategory().getId()).get());
-////        String extention = implImageService.getFileExtention(image.getOriginalFilename());
-////        String filename = training.getName() + "." + extention;
         if (training.getImage() != null && training.getImage() != image.getOriginalFilename()) {
             training.setImage(image.getOriginalFilename());
         } else {
@@ -81,20 +75,14 @@ public class TrainingController {
     }
 
     @DeleteMapping("/trainings/{id}")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public void deleteTraining(@PathVariable("id") long id) {
         implTrainingService.delete(id);
     }
 
     @GetMapping("/training/{id}")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public Training getTrainingById(@PathVariable("id") long id) {
         return implTrainingService.getOneById(id).orElseThrow(
                 () -> new RecordNotFoundException("Id de formation " + id + " n'existe pas."));
-      /*  if(training.isPresent()){
-            return new ResponseEntity<>(training.get(), HttpStatus.OK);
-        }
-        return null;*/
     }
 
     @GetMapping("/categorie/{id}/trainings")
