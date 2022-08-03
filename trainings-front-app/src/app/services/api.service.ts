@@ -12,9 +12,9 @@ import { TokenStorageService } from './token-storage.service';
 })
 export class ApiService {
   constructor(
-    private http: HttpClient
+    private http: HttpClient, private tokenSerive: TokenStorageService
   ) {
-
+    // const header = new HttpHeaders().set("Authorization", "Bearer " + this.tokenSerive.getToken())
   }
 
   //get all trainings from api
