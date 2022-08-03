@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class AuthController {
         Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-//                .withExpiresAt(new Date(System.currentTimeMillis() + 1 * 60 * 1000))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000))
 //                .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(role -> role.getAuthority()).collect(Collectors.toList()))
                 .sign(algorithm);
