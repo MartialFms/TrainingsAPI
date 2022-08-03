@@ -2,6 +2,7 @@ package fr.fms.apitrainings.service;
 
 import fr.fms.apitrainings.dao.UsersRepository;
 import fr.fms.apitrainings.entities.Users;
+import fr.fms.apitrainings.security.JwtUtils;
 import fr.fms.apitrainings.security.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,10 @@ public class ImplUserService implements IService<Users> {
 
     @Autowired
     SecurityConfig security;
+
+
+    @Autowired
+    public JwtUtils jwtUtils;
 
     @Override
     public List<Users> getAll() {

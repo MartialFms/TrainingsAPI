@@ -4,9 +4,14 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import fr.fms.apitrainings.entities.Users;
 import fr.fms.apitrainings.security.JwtUtils;
+<<<<<<< HEAD
+=======
+import fr.fms.apitrainings.security.payload.JwtResponse;
+>>>>>>> 93bf34e07d5c64c76aecf0dd7c85e4c84941e323
 import fr.fms.apitrainings.security.payload.LoginRequest;
 import fr.fms.apitrainings.service.ImplUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,9 +34,11 @@ public class AuthController {
     @Autowired
     ImplUserService implUserService;
 
+
     @PostMapping("/signin")
     public void login(@RequestBody LoginRequest loginRequest) {
 
+        //creation authentification
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -63,3 +70,4 @@ public class AuthController {
 //                roles));
     }
 }
+
