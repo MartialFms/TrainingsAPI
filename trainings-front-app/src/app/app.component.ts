@@ -62,7 +62,9 @@ export class AppComponent {
 
   //to logout and redirect to form login
   logout() {
-    this.authService.logout();
-    this.router.navigateByUrl('login');
+    // this.authService.logout();
+    // this.router.navigateByUrl('login');
+    this.tokenStorage.signOut();
+    window.location.reload(); 
   }
 }

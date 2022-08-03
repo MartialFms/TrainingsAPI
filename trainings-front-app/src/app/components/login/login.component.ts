@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
           this.isLoggedIn = true;
           this.role = this.tokenStorage.getUser().role;
           console.log(' + + Reussite de connection avec Json token + +');
-          this.router.navigateByUrl('cart');
+          window.location.reload(); 
         },
         (err) => {
           this.displayError = true;
