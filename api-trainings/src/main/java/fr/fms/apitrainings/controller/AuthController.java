@@ -40,14 +40,26 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User user = (User) authentication.getPrincipal();
 
+        //Generate secret algorithm
         Algorithm algorithm = Algorithm.HMAC256(JwtUtils.SECRET);
+
+        //Generate access Token
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + 5 * 60 * 1000))
 //                .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(roles -> roles.getAuthority()).collect(Collectors.toList()))
                 .sign(algorithm);
-        JwtResponse response = new JwtResponse(accessToken, user.getUsername(), user.getPassword(), user.getAuthorities());
+
+        //Generate refresh Token
+        String refreshToken = JWT.create()
+                .withSubject(user.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + 15 * 60 * 1000))
+//                .withIssuer(request.getRequestURL().toString())
+                .sign(algorithm);
+
+        //Generate response
+        JwtResponse response = new JwtResponse(accessToken, refreshToken, user.getUsername(), user.getPassword(), user.getAuthorities());
         return ResponseEntity.ok(response);
     }
 }

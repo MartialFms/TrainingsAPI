@@ -55,13 +55,13 @@ export class LoginComponent implements OnInit {
       console.log(form.value.email + " --- " + form.value.password)
       this.authService.loginTk(form.value.email, form.value.password).subscribe(
         (data) => {
-          console.log("------------" + data.token + " --")
-          this.tokenStorage.saveToken(data.token);
+          console.log("------------" + data.accessToken + " --"  + data.refreshToken)
+          this.tokenStorage.saveToken(data.accessToken);
           this.tokenStorage.saveUser(data);
           this.isLoggedIn = true;
           this.role = this.tokenStorage.getUser().role;
           console.log(' + + Reussite de connection avec Json token + +');
-
+          this.router.navigateByUrl('cart');
         },
         (err) => {
           this.displayError = true;
