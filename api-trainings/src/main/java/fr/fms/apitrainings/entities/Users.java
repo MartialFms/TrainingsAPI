@@ -48,4 +48,5 @@ public class Users implements Serializable {
                 ", roles=" + roles +
                 '}';
     }
+
 }

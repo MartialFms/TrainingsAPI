@@ -39,6 +39,9 @@ public class ApiTrainingsApplication implements CommandLineRunner {
     @Autowired
     private ImplUserService implUserService;
 
+    @Autowired
+    private SecurityConfig security;
+
 
     public static void main(String[] args) {
         SpringApplication.run(ApiTrainingsApplication.class, args);
@@ -79,7 +82,7 @@ public class ApiTrainingsApplication implements CommandLineRunner {
         List<Role> mama = new ArrayList<>();
         mama.add(user);
 
-        implUserService.save(new Users(null, "j.delmerie@live.fr", "del", mdp, true, del));
-        implUserService.save(new Users(null, "mama@live.fr", "mamacita", mdp, true, mama));
+        implUserService.save(new Users(null, "j.delmerie@live.fr", "del",  security.encodePassword("mdp1"), true, del));
+        implUserService.save(new Users(null, "mama@live.fr", "mamacita", security.encodePassword("mdp2"),true, mama));
     }
 }
