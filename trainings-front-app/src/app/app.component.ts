@@ -19,52 +19,23 @@ export class AppComponent {
   hasRoleAdmin: boolean = false;
 
   constructor(
-    private authService: AuthentificationService,
-    private router: Router,
-    private api: ApiService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private authService: AuthentificationService
   ) {}
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
+    if (this.authService.checkIfLogged()) {
       this.isLoggedIn = true;
-      this.role = this.tokenStorage.getUser().role;
-      this.isAdmin();
+      this.username = this.tokenStorage.getUser().username;
     }
 
-
-  }
-
-  //check if user is connected
-  isLogged(): boolean {
-    this.username = this.tokenStorage.getUser().username;
-    return this.isLoggedIn;
-  }
-
-  //check if user connected is admin
-  isAdmin(): boolean {
-    // console.log(this.tokenStorage.getUser().roles.includes('ADMIN', 0));
-
-    // console.log(this.tokenStorage.getUser().roles);
-
-    for (let r of this.tokenStorage.getUser().roles) {
-      if (r.name == 'ADMIN') {
-        this.hasRoleAdmin = true;
-      } 
+    if (this.authService.checkIfAdmin()) {
+      this.hasRoleAdmin = true;
     }
-
-    // this.tokenStorage.getUser().roles.indexOf('ADMIN') !== -1
-    //   ? (this.authService.isAdmin = true)
-    //   : (this.authService.isAdmin = false);
-    // console.log(this.authService.isAdmin);
-    return this.hasRoleAdmin;
   }
 
-  //to logout and redirect to form login
   logout() {
-    // this.authService.logout();
-    // this.router.navigateByUrl('login');
     this.tokenStorage.signOut();
-    window.location.reload(); 
+    window.location.reload();
   }
 }

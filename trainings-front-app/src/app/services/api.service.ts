@@ -1,10 +1,11 @@
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Category } from '../model/category';
 import { Order } from '../model/order';
 import { OrderItem } from '../model/orderItem';
 import { Training } from '../model/training';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root',

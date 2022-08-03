@@ -26,7 +26,7 @@
   </div>
 </nav>
 
-<div class="container my-5" *ngIf="isLogged()">
+<div class="container my-5" *ngIf="isLoggedIn == true">
   <strong>Bonjour <span class="text-danger">{{username}}</span>, vous êtes bien connecté. </strong>
 </div>
 

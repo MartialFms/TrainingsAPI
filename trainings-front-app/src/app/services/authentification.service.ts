@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/user';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,56 +14,12 @@ export class AuthentificationService {
   isLogged: boolean = false;
   isAdmin: boolean = false;
 
-  private users = [
-    // { name: 'mohamed', password: '123', roles: ['USER'] },
-    // { name: 'maryne', password: '123', roles: ['USER'] },
-    // { name: 'del', password: '123', roles: ['ADMIN', 'USER'] },
-    // { name: 'hugo', password: '123', roles: ['USER'] },
-    {
-      id: 1,
-      email: 'j.delmerie@live.fr',
-      username: 'del',
-      password: '123',
-      enable: true,
-      roles: ['ADMIN', 'USER'],
-    },
-  ];
-
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private tokenStorage: TokenStorageService
+  ) {
     this.currentUser = new Map<string, String>();
   }
-
-  // //save current user in localstorage
-  // saveCurrentUser(user: User) {
-  //   localStorage.setItem('currentUser', JSON.stringify(user));
-  // }
-
-  // //check if user existe and login to order
-  // login(email: string, password: string) {
-  //   if (!this.isLogged) {
-  //     for (let u of this.users) {
-  //       if (email == u.email && password == u.password) {
-  //         this.user = new User(
-  //           u.id,
-  //           u.username,
-  //           window.btoa(u.password),
-  //           u.email,
-  //           u.enable,
-  //           u.roles,
-  //           []
-  //         );
-  //         this.saveCurrentUser(this.user);
-  //         this.isLogged = true;
-
-  //         for (let r of u.roles) {
-  //           if (r == 'ADMIN') {
-  //             this.isAdmin = true;
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 
   //avec token ------------------------------
   loginTk(username: string, password: string): Observable<any> {
@@ -74,6 +31,24 @@ export class AuthentificationService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
       }
     );
+  }
+
+  checkIfLogged(): boolean {
+    if (this.tokenStorage.getToken()) {
+      this.isLogged = true;
+    }
+    return this.isLogged;
+  }
+
+  checkIfAdmin(): boolean {
+    if (this.tokenStorage.getUser().roles) {
+      for (let r of this.tokenStorage.getUser().roles) {
+        if (r.name == 'ADMIN') {
+          this.isAdmin = true;
+        }
+      }
+    }
+    return this.isAdmin;
   }
 
   //disconnect user
