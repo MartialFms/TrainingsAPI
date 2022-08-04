@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   role: string[] = [];
 
   constructor(
+    private router : Router,
     private formBuilder: FormBuilder,
     private authService: AuthentificationService,
     private tokenStorage: TokenStorageService
@@ -31,6 +32,10 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.role = this.tokenStorage.getUser().role;
+    }
+
+    if(this.authService.checkIfLogged()){
+      this.router.navigateByUrl("/trainings");
     }
   }
 
