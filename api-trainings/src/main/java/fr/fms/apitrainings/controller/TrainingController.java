@@ -93,7 +93,7 @@ public class TrainingController {
         return implTrainingService.getByCategory(id);
     }
 
-    @GetMapping(path = "/trainingImage/{id}")
+    @GetMapping("/trainingImage/{id}")
     public byte[] getTrainingImage(@PathVariable("id") Long id) throws Exception {
         Training training = implTrainingService.getOneById(id).get();
         return Files.readAllBytes(Paths.get("uploads").resolve(training.getImage()));
