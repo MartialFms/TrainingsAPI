@@ -78,8 +78,10 @@ public class TrainingController {
     @DeleteMapping("/trainings/{id}")
     public void deleteTraining(@PathVariable("id") long id, @RequestHeader("Authorization") String authorization) throws IOException {
         Training training = implTrainingService.getOneById(id).get();
-        Files.delete(Paths.get("uploads").resolve(training.getImage()));
         implTrainingService.delete(id);
+        if (training.getImage() != "noimage.png") {
+            Files.delete(Paths.get("uploads").resolve(training.getImage()));
+        }
     }
 
     @GetMapping("/training/{id}")
