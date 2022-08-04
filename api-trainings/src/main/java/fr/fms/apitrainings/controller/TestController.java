@@ -33,7 +33,7 @@ public class TestController {
     UsersRepository usersRepository;
 
     @GetMapping("/test")
-    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
+//    @PostAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<Users> listOfTrainings() {
         return usersRepository.findAll();
     }

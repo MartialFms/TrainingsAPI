@@ -47,14 +47,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-//        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/signin").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/trainings").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/categorie/{id}/trainings").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/trainingImage/{id}").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/categories").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/category/{id}").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/training/{id}").hasAuthority("ROLE_ADMIN");
-//        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/signin").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/categories").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/category/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/order").hasAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/orders").hasAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/orderItems/{orderId}").hasAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/order/{orderId}").hasAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/trainings").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/trainings").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/training/{id}").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/trainings/{id}").hasAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/training/{id}").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/categorie/{id}/trainings").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/trainingImage/{id}").permitAll();
+        http.authorizeRequests().anyRequest().authenticated();
 
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()))
                 .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
