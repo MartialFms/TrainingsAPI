@@ -23,12 +23,18 @@ export class AuthentificationService {
 
   //avec token ------------------------------
   loginTk(username: string, password: string): Observable<any> {
-    console.log(new HttpHeaders({ 'Content-Type': 'application/json' }));
+
+    let headerss = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    });
+    
     return this.http.post(
       'http://localhost:8080/api/signin',
       { username, password },
       {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+        headers: headerss,
       }
     );
   }

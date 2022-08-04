@@ -78,7 +78,7 @@ export class TrainingComponent implements OnInit {
         myForm.value.description,
         myForm.value.price,
         1,
-        this.training != null ? myForm.value.image : '', 
+        this.training != null ? myForm.value.image : 'noimage.png', 
         new Category(myForm.value.category, '')
       );
       trainingData.append('training', JSON.stringify(this.training));

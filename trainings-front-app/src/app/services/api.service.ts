@@ -14,8 +14,12 @@ export class ApiService {
   constructor(
     private http: HttpClient, private tokenSerive: TokenStorageService
   ) {
-    // const header = new HttpHeaders().set("Authorization", "Bearer " + this.tokenSerive.getToken())
   }
+
+  private authHeader = new HttpHeaders({
+    'Authorization': 'Bearer ' + this.tokenSerive.getToken(),
+  });
+
 
   //get all trainings from api
   public getTrainings() {
@@ -31,19 +35,19 @@ export class ApiService {
   public add(trainingData: FormData) {
     return this.http.post<Training>(
       environment.host + '/trainings',
-      trainingData
+      trainingData,  {headers : this.authHeader}
     );
   }
 
   //delete
   public deleteTr(id: number) {
-    return this.http.delete<Training>(environment.host + '/trainings/' + id);
+    return this.http.delete<Training>(environment.host + '/trainings/' + id, {headers : this.authHeader});
   }
 
   public update(id: number, trainingData: FormData) {
     return this.http.put<Training>(
       environment.host + '/training/' + id,
-      trainingData
+      trainingData,  {headers : this.authHeader}
     );
   }
 
@@ -54,7 +58,7 @@ export class ApiService {
   }
 
   public addOrder(order: Order) {
-    return this.http.post<Order>(environment.host + '/order', order);
+    return this.http.post<Order>(environment.host + '/order', order, {headers : this.authHeader});
   }
 
   public getCategories() {
@@ -70,14 +74,14 @@ export class ApiService {
   }
 
   public getAllOrders() {
-    return this.http.get<Order[]>(environment.host + '/orders');
+    return this.http.get<Order[]>(environment.host + '/orders', {headers : this.authHeader});
   }
 
   public getOneOrder(id: number) {
-    return this.http.get<Order>(environment.host + '/order/' + id);
+    return this.http.get<Order>(environment.host + '/order/' + id, {headers : this.authHeader});
   }
 
   public getOrderItems(id: number) {
-    return this.http.get<OrderItem[]>(environment.host + '/orderItems/' + id);
+    return this.http.get<OrderItem[]>(environment.host + '/orderItems/' + id, {headers : this.authHeader});
   }
 }

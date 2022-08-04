@@ -40,7 +40,7 @@ public class TrainingController {
     }
 
     @PostMapping("/trainings")
-    public ResponseEntity<Error> saveTraining(@RequestParam("image") MultipartFile image, @RequestParam("training") String trainingJson) throws JsonProcessingException {
+    public ResponseEntity<Error> saveTraining(@RequestParam("image") MultipartFile image, @RequestParam("training") String trainingJson, @RequestHeader("Authorization") String authorization) throws JsonProcessingException {
         Training training = new ObjectMapper().readValue(trainingJson, Training.class);
         training.setCategory(implCategoryService.getOneById(training.getCategory().getId()).get());
         if (training.getImage() != null) {
@@ -59,7 +59,7 @@ public class TrainingController {
     }
 
     @PutMapping("/training/{id}")
-    public void updateTraining(@RequestParam("image") MultipartFile image, @RequestParam("training") String trainingJson) throws JsonProcessingException {
+    public void updateTraining(@RequestParam("image") MultipartFile image, @RequestParam("training") String trainingJson, @RequestHeader("Authorization") String authorization) throws JsonProcessingException {
         Training training = new ObjectMapper().readValue(trainingJson, Training.class);
         training.setCategory(implCategoryService.getOneById(training.getCategory().getId()).get());
         if (training.getImage() != null && training.getImage() != image.getOriginalFilename()) {
@@ -76,7 +76,7 @@ public class TrainingController {
     }
 
     @DeleteMapping("/trainings/{id}")
-    public void deleteTraining(@PathVariable("id") long id) throws IOException {
+    public void deleteTraining(@PathVariable("id") long id, @RequestHeader("Authorization") String authorization) throws IOException {
         Training training = implTrainingService.getOneById(id).get();
         Files.delete(Paths.get("uploads").resolve(training.getImage()));
         implTrainingService.delete(id);

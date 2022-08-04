@@ -18,22 +18,22 @@ public class OrderController {
     private ImplOrderService implOrderService;
 
     @PostMapping("/order")
-    public Orders saveOrder(@RequestBody Orders orders) {
+    public Orders saveOrder(@RequestBody Orders orders, @RequestHeader("Authorization") String authorization) {
         return implOrderService.save(orders);
     }
 
     @GetMapping("/orders")
-    public List<Orders> getAllOrders() {
+    public List<Orders> getAllOrders(@RequestHeader("Authorization") String authorization) {
         return implOrderService.getAll();
     }
 
     @GetMapping("/orderItems/{orderId}")
-    public List<OrderItem> getOrderItem(@PathVariable("orderId") long orderId) {
+    public List<OrderItem> getOrderItem(@PathVariable("orderId") long orderId, @RequestHeader("Authorization") String authorization) {
         return implOrderService.getOrderItemsByOrderId(orderId);
     }
 
     @GetMapping("/order/{orderId}")
-    public Orders getOneOrder(@PathVariable("orderId") long orderId) {
+    public Orders getOneOrder(@PathVariable("orderId") long orderId, @RequestHeader("Authorization") String authorization) {
         return implOrderService.getOneById(orderId).get();
     }
 }
